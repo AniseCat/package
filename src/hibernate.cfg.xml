@@ -20,5 +20,6 @@
     <mapping class="edu.library.PO.UserPO"/>
     <mapping class="edu.library.PO.ChangeduserPO"/>
     <mapping class="PO.AuthcodePO"/>
+    <mapping class="PO.UserPO"/>
   </session-factory>
 </hibernate-configuration>

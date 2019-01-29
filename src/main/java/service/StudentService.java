@@ -10,13 +10,7 @@ import java.util.ArrayList;
 
 public interface StudentService {
 
-    public AuthCodeException sendAuthCode(String mail);
-
-    public boolean register(String mail,String password,int authCode);
-
     public boolean modifyInformation(Student student);
-
-    public boolean cancelUser(String studentId);
 
     //如果比开课时间早，则加入待选；否则，如果有空缺，直接选入
     public boolean selectCourse(String studentId, String courseId);

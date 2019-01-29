@@ -1,12 +1,13 @@
 package service;
 
+import Message.AuthCodeException;
 import Model.*;
 
 import java.util.ArrayList;
 
 public interface TeacherService {
 
-    public boolean register(Teacher teacher);
+    public boolean modifyInformation(Student student);
 
     public boolean addLecture(Lecture lecture);
 
