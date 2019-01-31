@@ -19,19 +19,13 @@ public interface StudentService {
 
     public boolean addIntoCourse(ArrayList studentList, String courseId);
 
-    public ArrayList getNotice(String studentId);
-
     public boolean downloadCourseware(String courseId, String coursewareUrl);
 
     public boolean uploadExercise(String courseId, String studentId, String exerciseUrl);
 
     public boolean downloadExercise(String courseId, String studentId, String exerciseUrl);
 
-    public boolean getMark(String courseId, String studentId);
-
-    public boolean addPost(Post p);
-
-    public boolean remarkPost(PostItem item);
+    public boolean getCourseInformation(String courseId, String studentId);
 
     //查看退选课信息，成绩信息等(可以按照学期 课程 老师来查询/排列)
     public ArrayList getStudyInformation();

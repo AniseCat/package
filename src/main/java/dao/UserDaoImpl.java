@@ -1,13 +1,16 @@
 package dao;
 
+import Model.Notice;
+import Model.Post;
+import Model.PostItem;
 import Model.UserType;
-import PO.AuthcodePO;
-import PO.UserPO;
+import PO.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
 
@@ -106,6 +109,69 @@ public class UserDaoImpl implements UserDao {
         tx.commit();
         session.close();
         return true;
+    }
+
+    public boolean addPost(Post post){
+        boolean success =true;
+        PostPO postPO = getPostPO(post);
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        session.save(postPO);
+        tx.commit();
+        session.close();
+        return success;
+    }
+
+    public boolean addRemark(PostItem postItem){
+        boolean success =true;
+        PostitemPO postitemPO = getPostitemPO(postItem);
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        session.save(postitemPO);
+        tx.commit();
+        session.close();
+        return success;
+    }
+
+    public ArrayList getNotice(String mail){
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        ArrayList noticePOlist = (ArrayList)session.createQuery("from NoticePO " +
+                "where mail = ?1").setParameter(1,mail);
+        session.createQuery("delete  NoticePO ").executeUpdate();
+        tx.commit();
+        session.close();
+        ArrayList list = new ArrayList();
+        for(int i = 0; i < noticePOlist.size();i++){
+            list.add(getNotice((NoticePO)noticePOlist.get(i)));
+        }
+        return list;
+    }
+
+    public PostPO getPostPO(Post post){
+        PostPO postPO = new PostPO();
+        postPO.setUsername(post.getUsername());
+        postPO.setTitle(post.getTitle());
+        postPO.setTime(post.getTime());
+        postPO.setContent(post.getContent());
+        return postPO;
+    }
+
+    public PostitemPO getPostitemPO(PostItem postItem){
+        PostitemPO postitemPO = new PostitemPO();
+        postitemPO.setPostid(postItem.getPostId());
+        postitemPO.setParentid(postItem.getParentId());
+        postitemPO.setUsername(postItem.getUsername());
+        postitemPO.setTime(postItem.getTime());
+        postitemPO.setContent(postItem.getContent());
+        return postitemPO;
+    }
+
+    public Notice getNotice(NoticePO noticePO){
+        Notice notice = new Notice();
+        notice.setMail(noticePO.getMail());
+        notice.setContent(noticePO.getContent());
+        return notice;
     }
 
 }

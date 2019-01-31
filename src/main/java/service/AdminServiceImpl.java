@@ -1,6 +1,5 @@
 package service;
 
-import dao.AdminDao;
 import dao.AdminDaoImpl;
 
 import java.util.ArrayList;
@@ -66,6 +65,10 @@ public class AdminServiceImpl implements AdminService {
      * 获取论坛使用情况，便于图表显示
      * 暂定为获取前一天的 上传/下载量 论坛发言条数 在线人数等等
      */
-    public ArrayList getForumUsageInfo();
+    public ArrayList getForumUsageInfo(){
+        ArrayList list = new ArrayList();
+        ??
+        return list;
+    }
 
 }

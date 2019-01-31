@@ -4,9 +4,7 @@ import Model.Course;
 import Model.Lecture;
 import Model.Teacher;
 import Model.Student;
-import PO.CoursePO;
-import PO.LecturePO;
-import PO.UserPO;
+import PO.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
@@ -22,6 +20,10 @@ public class AdminDaoImpl implements AdminDao {
         LecturePO lecturePO = session.get(LecturePO.class,lectureId);
         lecturePO.setIsvalid(1);
         session.update(lecturePO);
+        NoticePO noticePO = new NoticePO();
+        noticePO.setMail(lecturePO.getTeacherId());
+        noticePO.setContent("Lecture:"+lecturePO.getName()+"批准通过");
+        session.save(noticePO);
         tx.commit();
         session.close();
         return success;
@@ -34,6 +36,11 @@ public class AdminDaoImpl implements AdminDao {
         CoursePO coursePO = session.get(CoursePO.class,courseId);
         coursePO.setIsvalid(1);
         session.update(coursePO);
+        NoticePO noticePO = new NoticePO();
+        noticePO.setMail(getCourse(coursePO).getLecture().getTeacherId());
+        noticePO.setContent("Course:"+getCourse(coursePO).getLecture().getName()
+                +"-"+coursePO.getTerm()+"批准通过");
+        session.save(noticePO);
         tx.commit();
         session.close();
         return success;
@@ -45,6 +52,10 @@ public class AdminDaoImpl implements AdminDao {
         Transaction tx=session.beginTransaction();
         LecturePO lecturePO = session.get(LecturePO.class,lectureId);
         session.delete(lecturePO);
+        NoticePO noticePO = new NoticePO();
+        noticePO.setMail(lecturePO.getTeacherId());
+        noticePO.setContent("Lecture:"+lecturePO.getName()+"申请被拒");
+        session.save(noticePO);
         tx.commit();
         session.close();
         return success;
@@ -56,6 +67,11 @@ public class AdminDaoImpl implements AdminDao {
         Transaction tx=session.beginTransaction();
         CoursePO coursePO = session.get(CoursePO.class,courseId);
         session.delete(coursePO);
+        NoticePO noticePO = new NoticePO();
+        noticePO.setMail(getCourse(coursePO).getLecture().getTeacherId());
+        noticePO.setContent("Course:"+getCourse(coursePO).getLecture().getName()
+                +"-"+coursePO.getTerm()+"批准被拒");
+        session.save(noticePO);
         tx.commit();
         session.close();
         return success;
@@ -149,11 +165,18 @@ public class AdminDaoImpl implements AdminDao {
 
     public Teacher getTeacher(TeacherPO teacherPO){
         Teacher teacher = new Teacher();
+        teacher.setMail(teacherPO.getMail());
+        teacher.setName(teacherPO.getUsername());
+        teacher.setIconUrl(teacherPO.getIconUrl());
         return teacher;
     }
 
     public Student getStudent(StudentPO studentPO){
         Student student = new Student();
+        student.setMail(studentPO.getMail());
+        student.setId(studentPO.getStudentId());
+        student.setName(studentPO.getUsername());
+        student.setIconUrl(studentPO.getIconUrl());
         return student;
     }
 

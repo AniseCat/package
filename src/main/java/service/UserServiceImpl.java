@@ -1,26 +1,29 @@
 package service;
 
 import Message.AuthCodeException;
+import Model.Post;
+import Model.PostItem;
 import Model.UserType;
 import dao.UserDaoImpl;
 import util.MailUtil;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
 
 public class UserServiceImpl implements UserService {
 
     UserDaoImpl userDao = new UserDaoImpl();
     MailUtil mailUtil = new MailUtil();
 
-    public boolean login(String userId,String password){
-        if(password .equals(userDao.getPassword(userId)))
+    public boolean login(String mail,String password){
+        if(password .equals(userDao.getPassword(mail)))
             return true;
         else
             return false;
     }
 
-    public UserType getUserType(String userId){
-        return userDao.getUserType(userId);
+    public UserType getUserType(String mail){
+        return userDao.getUserType(mail);
     }
 
     public AuthCodeException sendAuthCode(String mail){
@@ -49,4 +52,15 @@ public class UserServiceImpl implements UserService {
         return userDao.cancelUser(mail);
     }
 
+    public boolean addPost(Post post){
+        return userDao.addPost(post);
+    }
+
+    public boolean remarkPost(PostItem postItem){
+        return userDao.addRemark(postItem);
+    }
+
+    public ArrayList getNotice(String mail){
+        return userDao.getNotice(mail);
+    }
 }

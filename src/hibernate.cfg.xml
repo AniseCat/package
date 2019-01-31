@@ -23,5 +23,10 @@
     <mapping class="PO.UserPO"/>
       <mapping class="PO.CoursePO"/>
       <mapping class="PO.LecturePO"/>
+      <mapping class="PO.PostPO"/>
+      <mapping class="PO.PostitemPO"/>
+      <mapping class="PO.StudentPO"/>
+      <mapping class="PO.TeacherPO"/>
+      <mapping class="PO.NoticePO"/>
   </session-factory>
 </hibernate-configuration>
