@@ -5,14 +5,30 @@ import java.util.ArrayList;
 public interface AdminService {
 
     /*
+     *审批课程（开课申请）
+     */
+    public ArrayList getApplyList();
+
+    /*
      *审批课程（创建课程申请）
      */
-    public boolean approveLecture(String lectureId);
+    public boolean approveLecture(int lectureId);
+
+
+    /*
+     *审批课程（创建课程申请）
+     */
+    public boolean declineLecture(int lectureId);
 
     /*
      *审批课程（开课申请）
      */
-    public boolean approveCourse(String courseId);
+    public boolean approveCourse(int courseId);
+
+    /*
+     *审批课程（开课申请）
+     */
+    public boolean declineCourse(int courseId);
 
     /*
      *获取老师信息，便于图表显示
