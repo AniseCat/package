@@ -52,6 +52,7 @@ public class MailUtil {
             // 发送，message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            System.out.print("将"+text+"发送给"+receiver);
         }
         catch (Exception e){
             e.printStackTrace();

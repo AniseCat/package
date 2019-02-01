@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class UserDaoImpl implements UserDao {
 
-    public int getAuthCode(String mail){
+    public boolean insertAuthCode(String mail){
+        boolean success = true;
         Session session = HibernateUtil.getSession() ;
         Transaction tx=session.beginTransaction();
         //插入一条新记录
@@ -23,9 +24,17 @@ public class UserDaoImpl implements UserDao {
         //设置有效期为当前时间+5分钟
         po.setVaildTime(new Timestamp(System.currentTimeMillis() + 5*60*1000));
         session.save(po);
-        //获取最大值(即刚插入的值)
+        tx.commit();
+        session.close();
+        //返回验证码
+        return success;
+    }
+
+    public int getAuthCode(String mail){
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
         int authCode = (Integer) session.createQuery(
-                "select max(id) from AuthcodePO").uniqueResult();
+                "select id from AuthcodePO order by id desc").setMaxResults(1).uniqueResult();
         tx.commit();
         session.close();
         //返回验证码
@@ -40,7 +49,7 @@ public class UserDaoImpl implements UserDao {
         //查找与当前用户的mail相同且仍在生效的验证码
         long num = (Long)session.createQuery(
                 "select count(*) from AuthcodePO where mail = ?1 " +
-                        "and vaildTime < ?2").setParameter(1,mail).
+                        "and vaildTime > ?2").setParameter(1,mail).
                 setParameter(2,now).uniqueResult();
         if(num > 0)
             inDatabase = true;
@@ -56,13 +65,14 @@ public class UserDaoImpl implements UserDao {
         //查找与当前用户的mail相同且仍在生效的验证码
         int id = (Integer)session.createQuery(
                 "select id from AuthcodePO where mail = ?1 " +
-                        "and vaildTime < ?2").setParameter(1,mail).
+                        "and vaildTime > ?2").setParameter(1,mail).
                 setParameter(2,now).uniqueResult();
         if(id == authCode){
             UserPO userPO = new UserPO();
             userPO.setMail(mail);
             userPO.setPassword(password);
             userPO.setUsertype(userType);
+            userPO.setIsvalid(1);
             session.save(userPO);
             tx.commit();
             session.close();
@@ -79,7 +89,7 @@ public class UserDaoImpl implements UserDao {
         String password = (String)session.createQuery(
                 "select password from UserPO where mail = ?1 " +
                         "and isvalid = ?2").setParameter(1,mail).
-                setParameter(2,true).uniqueResult();
+                setParameter(2,1).uniqueResult();
         tx.commit();
         session.close();
         return password;

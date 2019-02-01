@@ -12,20 +12,19 @@
         window.alert("${messageBean.message}");
     }
 </script>
-<p>
-    邮箱:
-    <input type='text' name='mail' value=''>
-</p>
-<p>
-    密码:
-    <input type='password' name='password' value=''>
-</p>
-<p>
-    <a href="login.do" style="color:red;text-decoration:none;">登录</a>
-</p>
-<p>
-    <a href="toRegister.do" style="color:red;text-decoration:none;">注册</a>
-</p>
+
+<form method='POST' action='Login.do'>
+    <p>
+        邮箱:
+        <input type='text' name='mail' value=''>
+    </p>
+    <p>
+        密码:
+        <input type='password' name='password' value=''>
+    </p>
+    <p><input type="submit" name="login" value="登录"></p>
+    <p><input type="submit" name="toRegister" value="注册"></p>
+</form>
 
 </body>
 </html>

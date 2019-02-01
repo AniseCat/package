@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
         if(userDao.hasValidAuthCode(mail)){
             return AuthCodeException.正在生效的验证码;
         }
-        //生成并发送验证码
+
+        userDao.insertAuthCode(mail);
         int authCode = userDao.getAuthCode(mail);
         try {
             mailUtil.send_mail(mail, String.valueOf(authCode));

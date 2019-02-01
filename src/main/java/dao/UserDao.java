@@ -7,6 +7,7 @@ import Model.UserType;
 import java.util.ArrayList;
 
 public interface UserDao {
+    public boolean insertAuthCode(String mail);
 
     public int getAuthCode(String mail);
 
