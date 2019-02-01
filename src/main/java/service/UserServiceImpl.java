@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
             return false;
     }
 
+    public int getAuthcode(String mail){
+        return userDao.getAuthCode(mail);
+    }
+
     public UserType getUserType(String mail){
         return userDao.getUserType(mail);
     }

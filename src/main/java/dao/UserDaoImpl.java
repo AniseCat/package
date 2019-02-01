@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
         Transaction tx=session.beginTransaction();
         Timestamp now = new Timestamp(System.currentTimeMillis());
         //查找与当前用户的mail相同且仍在生效的验证码
-        int num = (Integer)session.createQuery(
+        long num = (Long)session.createQuery(
                 "select count(*) from AuthcodePO where mail = ?1 " +
                         "and vaildTime < ?2").setParameter(1,mail).
                 setParameter(2,now).uniqueResult();

@@ -12,12 +12,20 @@
         window.alert("${messageBean.message}");
     }
 </script>
-
-<form method='POST' action='UserServlet'>
-username: <input type='text' name='username' value='${userBean.username}'>
-password: <input type='password' name='password' value=''>
-<input type='submit' name='loginAction' value='登录'>
-</form>
+<p>
+    邮箱:
+    <input type='text' name='mail' value=''>
+</p>
+<p>
+    密码:
+    <input type='password' name='password' value=''>
+</p>
+<p>
+    <a href="login.do" style="color:red;text-decoration:none;">登录</a>
+</p>
+<p>
+    <a href="toRegister.do" style="color:red;text-decoration:none;">注册</a>
+</p>
 
 </body>
 </html>

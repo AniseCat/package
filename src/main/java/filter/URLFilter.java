@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "URLFilter",urlPatterns = "/*")
+//@WebFilter(filterName = "URLFilter",urlPatterns = "/*")
 public class URLFilter extends HttpServlet implements Filter{//记得集成和声明
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain) throws IOException, ServletException {

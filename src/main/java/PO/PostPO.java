@@ -1,11 +1,12 @@
 package PO;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "post", schema = "j2ee", catalog = "")
-public class PostPO {
+public class PostPO implements Serializable {
     private int postid;
     private String username;
     private String title;

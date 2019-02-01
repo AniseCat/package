@@ -3,10 +3,11 @@ package PO;
 import Model.UserType;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user", schema = "j2ee", catalog = "")
-public class UserPO {
+public class UserPO implements Serializable {
     private int id;
     private String mail;
     private String password;

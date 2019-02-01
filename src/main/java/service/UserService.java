@@ -11,6 +11,8 @@ public interface UserService {
 
     public boolean login(String mail,String password);
 
+    public int getAuthcode(String mail);
+
     public UserType getUserType(String mail);
 
     public AuthCodeException sendAuthCode(String mail);

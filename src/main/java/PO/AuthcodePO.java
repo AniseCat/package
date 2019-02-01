@@ -1,11 +1,12 @@
 package PO;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "authcode", schema = "j2ee", catalog = "")
-public class AuthcodePO {
+public class AuthcodePO implements Serializable {
     private int id;
     private String mail;
     private Timestamp vaildTime;

@@ -1,10 +1,11 @@
 package PO;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "selectcourse", schema = "j2ee", catalog = "")
-public class SelectcoursePO {
+public class SelectcoursePO implements Serializable {
     private int courseid;
     private String mail;
     private Double mark;
