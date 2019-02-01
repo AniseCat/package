@@ -10,6 +10,8 @@ public class Course {
     String term;
     //班级人数
     int studentNum;
+    //是否开课
+    int start;
 
     public int getCourseId() {
         return courseId;
@@ -43,6 +45,14 @@ public class Course {
         this.studentNum = studentNum;
     }
 
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -50,6 +60,8 @@ public class Course {
                 ", lecture=" + lecture +
                 ", term='" + term + '\'' +
                 ", studentNum=" + studentNum +
+                ", start=" + start +
                 '}';
     }
+
 }

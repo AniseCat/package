@@ -24,4 +24,38 @@ public class TeacherServiceImpl implements TeacherService {
     public boolean publishMark(int courseId, ArrayList markList){
         return teacherDao.updateMark(courseId,markList);
     }
+
+    public boolean startCourse(int courseId){
+        boolean successs = true;
+        ArrayList studentList = teacherDao.getPreSelectList(courseId);
+        successs = teacherDao.startCourse(courseId) &&
+                new StudentServiceImpl().addIntoCourse(studentList,courseId);
+        return successs;
+    }
+
+    public ArrayList getCourseList(String mail){
+        return teacherDao.getCourseList(mail);
+    }
+
+    public ArrayList getLectureList(String mail){
+        return teacherDao.getLectureList(mail);
+    }
+
+    //TODO
+    public boolean uploadCourseware(int courseId, String coursewareUrl){
+        return  true;
+    }
+
+    public boolean uploadExercise(int courseId, String exerciseUrl){
+        return  true;
+    }
+
+    public boolean downloadExercise(int courseId, String exerciseUrl){
+        return  true;
+    }
+
+    public ArrayList getExerciseList(){
+        ArrayList list = new ArrayList();
+        return list;
+    }
 }

@@ -12,21 +12,16 @@
     <property name="show_sql">true</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
-      <mapping class="edu.library.PO.AdminPO"/>
-    <mapping class="edu.library.PO.BookPO"/>
-    <mapping class="edu.library.PO.BorrowauthorityPO"/>
-    <mapping class="edu.library.PO.BorrowrecordPO"/>
-    <mapping class="edu.library.PO.BorrowtypePO"/>
-    <mapping class="edu.library.PO.UserPO"/>
-    <mapping class="edu.library.PO.ChangeduserPO"/>
     <mapping class="PO.AuthcodePO"/>
     <mapping class="PO.UserPO"/>
-      <mapping class="PO.CoursePO"/>
-      <mapping class="PO.LecturePO"/>
-      <mapping class="PO.PostPO"/>
-      <mapping class="PO.PostitemPO"/>
-      <mapping class="PO.StudentPO"/>
-      <mapping class="PO.TeacherPO"/>
-      <mapping class="PO.NoticePO"/>
+    <mapping class="PO.CoursePO"/>
+    <mapping class="PO.LecturePO"/>
+    <mapping class="PO.PostPO"/>
+    <mapping class="PO.PostitemPO"/>
+    <mapping class="PO.StudentPO"/>
+    <mapping class="PO.TeacherPO"/>
+    <mapping class="PO.NoticePO"/>
+    <mapping class="PO.SelectcoursePO"/>
+    <mapping class="PO.PreselectPO"/>
   </session-factory>
 </hibernate-configuration>

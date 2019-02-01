@@ -16,4 +16,12 @@ public interface TeacherDao {
 
     public boolean updateMark(int courseId, ArrayList markList);
 
+    public boolean startCourse(int courseId);
+
+    public ArrayList getPreSelectList(int courseId);
+
+    public ArrayList getCourseList(String mail);
+
+    public ArrayList getLectureList(String mail);
+
 }

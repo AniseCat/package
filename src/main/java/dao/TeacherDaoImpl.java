@@ -1,10 +1,7 @@
 package dao;
 
 import Model.*;
-import PO.CoursePO;
-import PO.LecturePO;
-import PO.NoticePO;
-import PO.TeacherPO;
+import PO.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
@@ -58,15 +55,71 @@ public class TeacherDaoImpl implements TeacherDao {
             double mark = ((Mark)markList.get(i)).getMark();
             Session session = HibernateUtil.getSession() ;
             Transaction tx=session.beginTransaction();
-            CourselistPO courselistPO = (CourselistPO)session.createQuery(
-                    "from CourselistPO where courseid = ?1 and mail = ?2 order by term desc")
-                    .setParameter(1,courseId).setParameter(2,mail).setMaxResults(1).uniqueResult();
+            SelectcoursePO courselistPO = (SelectcoursePO)session.createQuery(
+                    "from SelectcoursePO where courseid = ?1 and mail = ?2")
+                    .setParameter(1,courseId).setParameter(2,mail).uniqueResult();
             courselistPO.setMark(mark);
             session.update(mark);
             tx.commit();
             session.close();
         }
         return success;
+    }
+
+    public boolean startCourse(int courseId){
+        boolean success = true;
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        session.createQuery("update CoursePO set start = ?1 where id = ?2")
+                .setParameter(1,1).setParameter(2,courseId).executeUpdate();
+        tx.commit();
+        session.close();
+        return success;
+    }
+
+    public ArrayList getPreSelectList(int courseId){
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        ArrayList coursePOList = (ArrayList)session.createQuery(
+                "from PreselectPO where courseid = ?1"
+        ).setParameter(1,courseId).list();
+        tx.commit();
+        session.close();
+        ArrayList list = new ArrayList();
+        for(int i = 0; i < coursePOList.size(); i++){
+            list.add(((PreselectPO)coursePOList.get(i)).getMail());
+        }
+        return list;
+    }
+
+    public ArrayList getCourseList(String mail){
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        ArrayList coursePOList = (ArrayList)session.createQuery(
+                "from CoursePO c, LecturePO l where c.lectureid = l.id and l.teacherId = ?1"
+        ).setParameter(1,mail).list();
+        tx.commit();
+        session.close();
+        ArrayList list = new ArrayList();
+        for(int i = 0; i < coursePOList.size(); i++){
+            list.add(new AdminDaoImpl().getCourse((CoursePO)coursePOList.get(i)));
+        }
+        return list;
+    }
+
+    public ArrayList getLectureList(String mail){
+        Session session = HibernateUtil.getSession() ;
+        Transaction tx=session.beginTransaction();
+        ArrayList lecturePOList = (ArrayList)session.createQuery(
+                "from LecturePO where teacherId = ?1"
+        ).setParameter(1,mail).list();
+        tx.commit();
+        session.close();
+        ArrayList list = new ArrayList();
+        for(int i = 0; i < lecturePOList.size(); i++){
+            list.add(new AdminDaoImpl().getLecture((LecturePO)lecturePOList.get(i)));
+        }
+        return list;
     }
 
     public LecturePO getLecturePO(Lecture lecture){

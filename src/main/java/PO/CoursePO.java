@@ -9,7 +9,8 @@ public class CoursePO {
     private int lectureid;
     private String term;
     private int studentNum;
-    private int isvalid;
+    private Integer start;
+    private Integer isvalid;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -52,12 +53,22 @@ public class CoursePO {
     }
 
     @Basic
-    @Column(name = "isvalid", nullable = false)
-    public int getIsvalid() {
+    @Column(name = "start", nullable = true)
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    @Basic
+    @Column(name = "isvalid", nullable = true)
+    public Integer getIsvalid() {
         return isvalid;
     }
 
-    public void setIsvalid(int isvalid) {
+    public void setIsvalid(Integer isvalid) {
         this.isvalid = isvalid;
     }
 
@@ -71,8 +82,9 @@ public class CoursePO {
         if (id != coursePO.id) return false;
         if (lectureid != coursePO.lectureid) return false;
         if (studentNum != coursePO.studentNum) return false;
-        if (isvalid != coursePO.isvalid) return false;
         if (term != null ? !term.equals(coursePO.term) : coursePO.term != null) return false;
+        if (start != null ? !start.equals(coursePO.start) : coursePO.start != null) return false;
+        if (isvalid != null ? !isvalid.equals(coursePO.isvalid) : coursePO.isvalid != null) return false;
 
         return true;
     }
@@ -83,7 +95,8 @@ public class CoursePO {
         result = 31 * result + lectureid;
         result = 31 * result + (term != null ? term.hashCode() : 0);
         result = 31 * result + studentNum;
-        result = 31 * result + isvalid;
+        result = 31 * result + (start != null ? start.hashCode() : 0);
+        result = 31 * result + (isvalid != null ? isvalid.hashCode() : 0);
         return result;
     }
 }

@@ -160,6 +160,7 @@ public class AdminDaoImpl implements AdminDao {
         course.setLecture(getLecture(getLecturePO(coursePO.getLectureid())));
         course.setTerm(coursePO.getTerm());
         course.setStudentNum(coursePO.getStudentNum());
+        course.setStart(coursePO.getStart());
         return course;
     }
 
